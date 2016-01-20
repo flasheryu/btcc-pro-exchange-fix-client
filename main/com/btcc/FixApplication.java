@@ -6,6 +6,8 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.btcc.fix.util.MessagePrinter;
+
 import quickfix.*;
 import quickfix.fix44.Heartbeat;
 import quickfix.fix44.Logon;
@@ -28,17 +30,38 @@ public class FixApplication implements quickfix.Application {
 
 	public void fromApp(quickfix.Message msg, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
 
-		String msgType = msg.getHeader().getString(35);
-		if((!msgType.equals(Logon.MSGTYPE)) && (!msgType.equals(Heartbeat.MSGTYPE))){
-			log.info("receivedType:" + msgType);
-			log.info("        " + sessionID + "------ fromApp---------" + msg.toString());
-
-			String[] fds = msg.toString().split("\u0001");
-			for(String fd : fds)
-			{
-				log.info(fd);
+//		String msgType = msg.getHeader().getString(35);
+//		if((!msgType.equals(Logon.MSGTYPE)) && (!msgType.equals(Heartbeat.MSGTYPE))){
+//			log.info("receivedType:" + msgType);
+//			log.info("        " + sessionID + "------ fromApp---------" + msg.toString());
+//
+//			String[] fds = msg.toString().split("\u0001");
+//			for(String fd : fds)
+//			{
+//				log.info(fd);
+//			}
+//		}
+		log.info("receivedType:"+msg.getHeader().getString(35));
+		log.info(sessionID+"------ fromApp---------"+msg.toString());
+	     try
+         {
+	    	 DataDictionary dd = new DataDictionary("FIX44.xml");
+	    	 MessagePrinter MP = new MessagePrinter();
+	    	 MP.print(dd, (quickfix.fix44.Message)msg);
+         }	     
+         catch (Exception ex)
+         {
+        	 log.warn("In BTCCFIXClientApp::fromApp(quickfix.Message msg, SessionID sessionID)::"+ex.getMessage());
+ 	    	 DataDictionary dd2;
+ 	    	 try {
+				dd2 = new DataDictionary("FIX44.xml");
+				MessagePrinter MP = new MessagePrinter();
+				MP.print(dd2, (quickfix.fix44.Message)msg);
+ 	    	 } catch (ConfigError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
+         }
 	}
 
 	public void onCreate(SessionID sessionID) {
