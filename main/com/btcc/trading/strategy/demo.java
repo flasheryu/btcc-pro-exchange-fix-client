@@ -9,9 +9,9 @@ public class demo {
 		
 		ProexTrader bot = new ProexTrader();
 		
-		CallMeMaybe s = new CallMeMaybe(bot, 5000);
-		s.setPhoneNumber("147258369");
-		s.startRoutine(5000);
+//		CallMeMaybe s = new CallMeMaybe(bot, 5000);
+//		s.setPhoneNumber("147258369");
+//		s.startRoutine(5000);
 		
 	}
 

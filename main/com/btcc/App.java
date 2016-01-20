@@ -27,12 +27,13 @@ public class App
 		String accountString = Config.getInstance().getAccount();
 //		testMessage(MessageProvider.createSecurityListRequest("req1"));
 //		testMessage(MessageProvider.createMarketDataRequest("XBTCNY", SubscriptionRequestType.SNAPSHOT, "req111"));
+		testMessage(MessageProvider.createMarketDataRequest("XBTCNY", SubscriptionRequestType.SNAPSHOT_PLUS_UPDATES, "req111"));
 //		testMessage(MessageProvider.createAccountInfoRequest(accountString, "req123"));
 //		testMessage(MessageProvider.createNewOrderSingle(accountString, UUID.randomUUID().toString(), Side.BUY, OrdType.LIMIT, 2770.3, 1, "XBTCNY", '1'));
 //		testMessage(MessageProvider.createNewOrderSingle(accountString, UUID.randomUUID().toString(), Side.BUY, OrdType.LIMIT, 2390.3, 1, "XBTCNY", '0'));
 
 //		testMessage(MessageProvider.createOrderCancelRequest(accountString, "clOrdID12333", "XBTCNY", "c164bceb2a83414082bb95ef1ff9eb4d"));
-		testMessage(MessageProvider.createOrderMassStatusRequest(accountString, "XBTCNY", "reqID1298699096"));
+//		testMessage(MessageProvider.createOrderMassStatusRequest(accountString, "XBTCNY", "reqID1298699096"));
 //		testMessage(MessageProvider.createOrderStatusRequest(accountString, "XBTCNY", "0662ca979f26499691ab37d596848325", "reqID12986"));
 	}
 
@@ -48,11 +49,6 @@ public class App
 		
 		initiator.block();
 		
-		
 //		initiator.start();
-		
-		
-		
-		
 	}
 }
